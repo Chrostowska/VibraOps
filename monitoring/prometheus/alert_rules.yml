@@ -1,0 +1,52 @@
+groups:
+- name: vibraops_alerts
+  rules:
+  # API Health Check
+  - alert: APIDown
+    expr: up{job="vibraops-api"} == 0
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "VibraOps API is down"
+      description: "VibraOps API has been down for more than 30 seconds."
+
+  # High Anomaly Rate
+  - alert: HighAnomalyRate
+    expr: rate(vibraops_anomalies_detected_total[5m]) > 0.5
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High anomaly detection rate"
+      description: "Anomaly detection rate is {{ $value }} anomalies per second over the last 5 minutes."
+
+  # High Response Time
+  - alert: HighResponseTime
+    expr: histogram_quantile(0.95, rate(vibraops_request_duration_seconds_bucket[5m])) > 1.0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High API response time"
+      description: "95th percentile response time is {{ $value }} seconds."
+
+  # High Error Rate
+  - alert: HighErrorRate
+    expr: rate(vibraops_requests_total{status=~"5.."}[5m]) / rate(vibraops_requests_total[5m]) > 0.1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate"
+      description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes."
+
+  # Memory Usage
+  - alert: HighMemoryUsage
+    expr: vibraops_memory_usage_mb > 1000
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage"
+      description: "Memory usage is {{ $value }}MB, above 1GB threshold." 
