@@ -1,0 +1,40 @@
+# Core ML and Data Processing
+numpy>=1.26.0
+pandas>=2.1.0
+scikit-learn>=1.3.0
+tensorflow>=2.15.0
+joblib>=1.3.1
+
+# API and Web Framework
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+python-multipart>=0.0.6
+
+# Data Visualization and Monitoring
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.17.0
+
+# Logging and Configuration
+python-json-logger>=2.0.7
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+
+# Model Export and Optimization
+onnx>=1.15.0
+onnxruntime>=1.16.0
+tf2onnx>=1.16.0
+
+# Monitoring and Metrics
+prometheus-client>=0.19.0
+psutil>=5.9.5
+
+# Development and Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.1
+black>=23.10.0
+flake8>=6.1.0
+
+# Time Series Processing
+scipy>=1.11.0 
