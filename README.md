@@ -555,12 +555,12 @@ security_checklist:
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Please see my [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### **Quick Contribution Setup**
 ```bash
 # Fork and clone
-git clone https://github.com/yourusername/VibraOps.git
+git clone https://github.com/Chrostowska/VibraOps.git
 cd VibraOps
 
 # Create feature branch
@@ -573,7 +573,7 @@ pip install -r requirements-dev.txt
 pytest tests/
 
 # Submit PR
-git push origin feature/amazing-feature
+git push origin feature/new-feature
 ```
 
 ### **Areas for Contribution**
@@ -585,67 +585,6 @@ git push origin feature/amazing-feature
 
 ---
 
-## Roadmap
-
-### **Q1 2024**
-- [ ] Real-time streaming data support
-- [ ] Advanced ensemble models
-- [ ] Mobile-responsive dashboard
-- [ ] Multi-tenant architecture
-
-### **Q2 2024**
-- [ ] Kubernetes deployment templates
-- [ ] Advanced alerting rules
-- [ ] Custom model training API
-- [ ] Edge computing support
-
-### **Q3 2024**
-- [ ] Federated learning capabilities
-- [ ] Time series forecasting
-- [ ] Integration with IoT platforms
-- [ ] Advanced visualization tools
-
----
-
-## Support & Community
-
-### **Getting Help**
-- **Documentation**: Comprehensive guides and tutorials
-- **Discussions**: GitHub Discussions for questions
-- **Issues**: Bug reports and feature requests
-- **Email**: enterprise@vibraops.com
-
-### **Community**
-- **Discord**: Real-time chat and support
-- **LinkedIn**: Professional networking and updates
-- **YouTube**: Video tutorials and demos
-- **Blog**: Technical articles and case studies
-
----
-
-## License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Acknowledgments
-
-Special thanks to the open-source community and these amazing projects:
-
-<div align="center">
-
-[![FastAPI](https://img.shields.io/badge/FastAPI-Modern-green?style=flat-square)](https://fastapi.tiangolo.com/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-ML-orange?style=flat-square)](https://tensorflow.org/)
-[![Grafana](https://img.shields.io/badge/Grafana-Monitoring-orange?style=flat-square)](https://grafana.com/)
-[![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-red?style=flat-square)](https://prometheus.io/)
-[![Docker](https://img.shields.io/badge/Docker-Containers-blue?style=flat-square)](https://docker.com/)
-
-</div>
-
----
-
-<div align="center">
 
 ### **VibraOps - Intelligent Industrial Monitoring** 
 
