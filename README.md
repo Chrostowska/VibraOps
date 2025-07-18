@@ -142,7 +142,7 @@ graph TB
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone **https://github.com/Chrostowska/VibraOps.git**
 cd VibraOps
 
 # Create and activate virtual environment
