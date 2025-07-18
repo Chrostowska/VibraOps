@@ -103,6 +103,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
+#PKL results
+.pkl
+
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -112,7 +115,6 @@ dmypy.json
 .pyre/
 
 # MLOps specific
-models/
 data/raw/
 data/processed/
 logs/
