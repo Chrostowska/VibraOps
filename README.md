@@ -522,37 +522,6 @@ VibraOps/
 
 ---
 
-## Security & Compliance
-
-### **Security Features**
-- **API Authentication** - JWT tokens and API keys
-- **Data Encryption** - TLS/SSL in transit, AES-256 at rest
-- **Input Validation** - Comprehensive request sanitization
-- **Rate Limiting** - DDoS protection and abuse prevention
-- **Audit Logging** - Complete request/response tracking
-
-### **Compliance**
-- **GDPR Ready** - Data privacy and user rights
-- **SOC 2 Type II** - Security and availability controls
-- **ISO 27001** - Information security management
-- **NIST Framework** - Cybersecurity risk management
-
-### **Best Practices**
-```yaml
-# Production Security Checklist
-security_checklist:
-  - [ ] Enable HTTPS only
-  - [ ] Implement authentication
-  - [ ] Configure rate limiting
-  - [ ] Enable audit logging
-  - [ ] Use secrets management
-  - [ ] Container image scanning
-  - [ ] Network segmentation
-  - [ ] Regular security updates
-```
-
----
-
 ## Contributing
 
 Please see my [Contributing Guide](CONTRIBUTING.md) for details.
