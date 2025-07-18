@@ -1,0 +1,146 @@
+version: '3.8'
+
+services:
+  # Main API Service
+  vibraops-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: vibraops-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONPATH=/app/src
+      - MODEL_PATH=/app/models
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vibraops-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+
+  # Grafana for visualization and monitoring
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vibraops-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=localhost
+      - GF_SMTP_ENABLED=false
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+    depends_on:
+      - prometheus
+
+  # Log aggregation with Loki
+  loki:
+    image: grafana/loki:latest
+    container_name: vibraops-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki:/etc/loki
+      - loki-data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+
+  # Promtail for log shipping
+  promtail:
+    image: grafana/promtail:latest
+    container_name: vibraops-promtail
+    volumes:
+      - ./logs:/var/log/vibraops
+      - ./monitoring/promtail:/etc/promtail
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+    depends_on:
+      - loki
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:alpine
+    container_name: vibraops-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+
+  # NGINX reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: vibraops-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./monitoring/nginx:/etc/nginx/conf.d
+      - ./ssl:/etc/ssl/certs
+    restart: unless-stopped
+    networks:
+      - vibraops-network
+    depends_on:
+      - vibraops-api
+      - grafana
+
+# Networks
+networks:
+  vibraops-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  loki-data:
+    driver: local
+  redis-data:
+    driver: local 
