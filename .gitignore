@@ -117,10 +117,10 @@ dmypy.json
 # MLOps specific
 data/raw/
 data/processed/
-logs/
+# logs/  # Commented out to allow logs directory
 artifacts/
-*.pkl
-*.h5
+# *.pkl  # Commented out to allow trained models
+# *.h5   # Commented out to allow LSTM models
 *.onnx
 *.joblib
 
